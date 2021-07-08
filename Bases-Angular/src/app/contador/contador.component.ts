@@ -15,7 +15,7 @@ import {Component} from '@angular/core';
 })
 export class ContadorComponent{
 
-  title: string = 'Bases-Angular';
+  title: string = 'Bases-ralugnA';
   numero: number =10;
   base: number = 5;
 
