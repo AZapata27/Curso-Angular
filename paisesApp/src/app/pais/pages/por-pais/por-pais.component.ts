@@ -12,12 +12,16 @@ export class PorPaisComponent{
   constructor(private paisService: PaisService) { }
 
   termino: string = "Hola";
+  isError: boolean = false;
 
   buscar(){
+    this.isError =false
     console.log(this.termino);
     this.paisService.buscarPais(this.termino)
       .subscribe( resp =>{
         console.log(resp);
+      }, error => {
+        this.isError =true;
       });
   }
 }
