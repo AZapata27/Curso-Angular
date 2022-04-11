@@ -1,50 +1,29 @@
-<h2>Por País</h2>
+<div class="animate__animated animate__fadeIn">
+    <h2>Por País</h2>
 
-<hr>
+    <hr>
 
-<div class="row">
-  <div class="col">
-    <form (ngSubmit)="buscar()" autocomplete="off">
-      <input type="text" name="termino" class="form-control"
-             [(ngModel)]="termino"  placeholder="Buscar país..." >
-    </form>
-  </div>
+    <div class="row">
+        <div class="col">
+            <app-pais-input (onDebounce)="sugerencias($event)"
+                            (onEnter)="buscar($event)"
+                            [placeholder]="placeholder"></app-pais-input>
+        </div>
+    </div>
+    <ul *ngIf="buscarSugerencia" class="list-group">
+        <li class="list-group-item list-group-item-action"
+        *ngFor="let sugerencia of countriesSugeridos">
+           <a [routerLink]="['/pais', sugerencia.alpha2Code]">{{ sugerencia.name }}</a>
+        </li>
+    </ul>
+
+    <hr>
 </div>
-
-<hr>
 
 <div *ngIf="isError" class="alert alert-danger"> No se encontró nada con el término {{termino}}</div>
 
 <div class="row">
-  <div class="col">
-    <table *ngIf="countries.length > 0" class="table table-hover" >
-      <caption>Paises</caption>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Bandera</th>
-          <th>Nombre</th>
-          <th>Población</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let country of countries; let i =index">
-        <td>{{i+1}}</td>
-        <td>
-          <img src="{{country.flag}}" alt="{{country.name}}" width="50" height="50">
-        </td>
-        <td>
-          {{country.name}}
-        </td>
-        <td>
-          {{country.population}}
-        </td>
-        <td>
-          <a [routerLink]="['/pais', country.name]">Ver...</a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="col">
+        <app-pais-tabla [countries]="countries"></app-pais-tabla>
+    </div>
 </div>
